@@ -1627,6 +1627,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
+    - target: {fileID: 8775763903072862538, guid: d8430b8e9ca985148a3c27ddbb57889e, type: 3}
+      propertyPath: moveSpeed
+      value: 4000
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d8430b8e9ca985148a3c27ddbb57889e, type: 3}
 --- !u!1001 &1060495217
@@ -3372,6 +3376,18 @@ PrefabInstance:
     - target: {fileID: 701533200453296792, guid: cae21a03992828746ab15217f9f41dc1, type: 3}
       propertyPath: m_Pivot.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 701533201719740176, guid: cae21a03992828746ab15217f9f41dc1, type: 3}
+      propertyPath: m_FontData.m_Alignment
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 701533201719740179, guid: cae21a03992828746ab15217f9f41dc1, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -0.0000038147
+      objectReference: {fileID: 0}
+    - target: {fileID: 701533201719740179, guid: cae21a03992828746ab15217f9f41dc1, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 166
       objectReference: {fileID: 0}
     - target: {fileID: 701533201719740182, guid: cae21a03992828746ab15217f9f41dc1, type: 3}
       propertyPath: player
