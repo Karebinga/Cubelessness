@@ -13,8 +13,8 @@ GameObject:
   - component: {fileID: 5745934697732883893}
   - component: {fileID: 5745934697732883894}
   - component: {fileID: 5745934697732883895}
-  - component: {fileID: 5745934697732883882}
   - component: {fileID: 5745934697732883881}
+  - component: {fileID: 8775763903072862538}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -29,7 +29,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5745934697732883888}
-  m_LocalRotation: {x: -0.00000000852391, y: -0.25412855, z: 0.000000016064659, w: 0.96717054}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0.056313362, y: 0.0000003241911, z: 86.53977}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
@@ -114,21 +114,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 1
---- !u!114 &5745934697732883882
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5745934697732883888}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4c48ba66185d9784dafd0ced10dd9d5d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  rb: {fileID: 5745934697732883895}
-  forwardForce: 70
-  sidewaysForce: 30
 --- !u!114 &5745934697732883881
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -141,4 +126,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 180fd046eabb6d54ca335835668509b6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  movement: {fileID: 5745934697732883882}
+  movement: {fileID: 8775763903072862538}
+--- !u!114 &8775763903072862538
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5745934697732883888}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e1bdad1680018754cb85d6b9dbb7d054, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rb: {fileID: 5745934697732883895}
+  moveSpeed: 4000
+  ScreenWidth: 0
+  forwardForce: 70
