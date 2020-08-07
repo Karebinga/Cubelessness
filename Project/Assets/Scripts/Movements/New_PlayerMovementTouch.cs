@@ -12,9 +12,13 @@ public class New_PlayerMovementTouch : MonoBehaviour
     {
         rb.AddForce(0, 0, forwardForce);
 
-        if (Input.touchCount > 0)
+        if ((Input.touchCount > 0) || (Input.GetMouseButton(0)))
         {
+#if UNITY_EDITOR
+            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+#else
             Ray ray = Camera.main.ScreenPointToRay(Input.GetTouch(0).position);
+#endif
             if (Physics.Raycast(ray, out _hit))
             {
                 Debug.Log(_hit.point.x);
@@ -22,7 +26,7 @@ public class New_PlayerMovementTouch : MonoBehaviour
                 Debug.Log(gameObject.transform.position.x);
             }
         }
-       
+
         if (rb.position.y < -1f)
         {
             FindObjectOfType<GameManager>().EndGame();
