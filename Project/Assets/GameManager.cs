@@ -7,9 +7,11 @@ public class GameManager : MonoBehaviour
     public float restartDelay;
 
     public GameObject completeLevelUI;
+    public AudioClip clip;
 
     public void CompleteLevel ()
     {
+        Time.timeScale = 0f;
         completeLevelUI.SetActive(true);
     }
 
@@ -18,6 +20,7 @@ public class GameManager : MonoBehaviour
         if (gameHasEnded == false)
         {
             gameHasEnded = true;
+            AudioSource.PlayClipAtPoint(clip, gameObject.transform.position);
             Invoke("Restart", restartDelay);
         }
     }

@@ -20,7 +20,7 @@ public class SettingsMenu : MonoBehaviour
         settingsMenuUI.SetActive(false);
     }
 
-    public void BackAbout()
+    public void BackAbout ()
     {
         aboutMenuUI.SetActive(false);
         settingsMenuUI.SetActive(true);

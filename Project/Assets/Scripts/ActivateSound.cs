@@ -7,6 +7,11 @@ public class ActivateSound : MonoBehaviour
     public float accuracy;
     public AudioClip clip;
 
+    private void Start()
+    {
+        player = GameObject.FindWithTag("Player");
+    }
+
     void FixedUpdate()
     {
         if (Mathf.Abs(gameObject.transform.position.z - player.transform.position.z) < accuracy)
