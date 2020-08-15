@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 1602848957109607381}
   - component: {fileID: 890195291}
   m_Layer: 0
-  m_Name: MusicCube1
+  m_Name: DrumCube2
   m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -61,7 +61,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 089778e7d8faeb74181ff6644d840a5d, type: 2}
+  - {fileID: 2100000, guid: f987c59f50d30b94490248c393acfdb5, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -110,4 +110,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   player: {fileID: 5745934697732883888, guid: d8430b8e9ca985148a3c27ddbb57889e, type: 3}
   accuracy: 0.2
-  clip: {fileID: 8300000, guid: 18fdf2997e6fa4d4485d33e2e839b7a5, type: 3}
+  clip: {fileID: 8300000, guid: 36ef4396c832bb245a240379fa0444d8, type: 3}

@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 1602848957109607381}
   - component: {fileID: 890195291}
   m_Layer: 0
-  m_Name: MusicCube2
+  m_Name: DrumCube3
   m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -61,7 +61,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: c3d93c467a820c64b973ef9c10c34dd9, type: 2}
+  - {fileID: 2100000, guid: 1cf714c4430f1ab479dd640841ba80cf, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -91,7 +91,7 @@ BoxCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8847456966935098142}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
@@ -110,4 +110,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   player: {fileID: 5745934697732883888, guid: d8430b8e9ca985148a3c27ddbb57889e, type: 3}
   accuracy: 0.2
-  clip: {fileID: 8300000, guid: d68452a914d982e42a1493da2aa7dba0, type: 3}
+  clip: {fileID: 8300000, guid: 056a0552ae7d33045aa8a15ec7410a67, type: 3}
