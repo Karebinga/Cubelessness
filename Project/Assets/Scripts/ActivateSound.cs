@@ -6,6 +6,7 @@ public class ActivateSound : MonoBehaviour
     public GameObject player;
     public float accuracy;
     public AudioClip clip;
+    private bool SoundIsActive = false;
 
     private void Start()
     {
@@ -14,9 +15,13 @@ public class ActivateSound : MonoBehaviour
 
     void FixedUpdate()
     {
-        if (Mathf.Abs(gameObject.transform.position.z - player.transform.position.z) < accuracy)
+        if (SoundIsActive == false)
         {
-            AudioSource.PlayClipAtPoint(clip, gameObject.transform.position);
+            if (Mathf.Abs(gameObject.transform.position.z - player.transform.position.z) <= accuracy)
+            {
+                SoundIsActive = true;
+                AudioSource.PlayClipAtPoint(clip, gameObject.transform.position);
+            }
         }
     }
 }

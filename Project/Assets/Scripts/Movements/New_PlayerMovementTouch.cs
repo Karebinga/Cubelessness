@@ -4,7 +4,8 @@ public class New_PlayerMovementTouch : MonoBehaviour
 {
     public float forwardForce;
     private RaycastHit _hit;
-
+    
+    public int gameEnd;
 
     void FixedUpdate()
     {
@@ -26,6 +27,11 @@ public class New_PlayerMovementTouch : MonoBehaviour
         if (gameObject.transform.position.y < -1f)
         {
             FindObjectOfType<GameManager>().EndGame();
+        }
+
+        if (gameObject.transform.position.z >= gameEnd)
+        {
+            FindObjectOfType<GameManager>().CompleteLevel();
         }
     }
 }

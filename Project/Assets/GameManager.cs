@@ -15,7 +15,7 @@ public class GameManager : MonoBehaviour
         completeLevelUI.SetActive(true);
     }
 
-    public void EndGame()
+    public void EndGame ()
     { 
         if (gameHasEnded == false)
         {
@@ -24,8 +24,15 @@ public class GameManager : MonoBehaviour
             Invoke("Restart", restartDelay);
         }
     }
-    void Restart()
+    public void Restart ()
     {
+        Time.timeScale = 1f;
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+    }
+
+    public void NextLevel ()
+    {
+        Time.timeScale = 1f;
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
     }
 }

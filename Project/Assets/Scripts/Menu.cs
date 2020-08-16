@@ -1,10 +1,36 @@
 ﻿using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
+using TMPro;
 
 public class Menu : MonoBehaviour
 {
-    public void StartGame()
+    private TextMeshProUGUI _levelText;
+    private int _levelNum = 1;
+    private int _sceneNum;
+
+    public void Start ()
     {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+        _sceneNum = SceneManager.sceneCountInBuildSettings - 1;
+        Debug.Log(_sceneNum);
+    }
+
+    public void StartGame ()
+    {
+        SceneManager.LoadScene(_levelNum);
+    }
+
+    public void LevelSelectNext ()
+    {
+        _levelText = GameObject.Find("Level").GetComponent<TextMeshProUGUI>();
+        _levelNum = Mathf.Clamp(_levelNum + 1, 1, _sceneNum);
+        _levelText.text = "Level " + _levelNum;
+    }
+
+    public void LevelSelectPrevious ()
+    {
+        _levelText = GameObject.Find("Level").GetComponentInChildren<TextMeshProUGUI>();
+        _levelNum = Mathf.Clamp(_levelNum - 1, 1, _sceneNum);
+        _levelText.text = "Level " + _levelNum;
     }
 }
