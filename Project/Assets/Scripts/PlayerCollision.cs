@@ -2,7 +2,7 @@
 
 public class PlayerCollision : MonoBehaviour
 {
-    public New_PlayerMovementTouch movement;
+    public PlayerMovementTouch movement;
 
     void OnTriggerEnter(Collider collider)
     {

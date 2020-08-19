@@ -31,4 +31,16 @@ public class SettingsMenu : MonoBehaviour
         aboutMenuUI.SetActive(true);
         settingsMenuUI.SetActive(false);
     }
+
+    public void Pause()
+    {
+        Debug.Log("Mute");
+        AudioListener.pause = true;
+    }
+
+    public void UnPause()
+    {
+        Debug.Log("UnMute");
+        AudioListener.pause = false;
+    }
 }

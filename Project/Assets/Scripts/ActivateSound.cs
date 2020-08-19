@@ -3,24 +3,25 @@ using UnityEngine;
 
 public class ActivateSound : MonoBehaviour
 {
-    public GameObject player;
     public float accuracy;
-    public AudioClip clip;
-    private bool SoundIsActive = false;
+
+    private bool _soundIsActive = false;
+    private GameObject _player;
 
     private void Start()
     {
-        player = GameObject.FindWithTag("Player");
+        _player = GameObject.FindWithTag("Player");
     }
 
     void FixedUpdate()
     {
-        if (SoundIsActive == false)
+        if (_soundIsActive == false)
         {
-            if (Mathf.Abs(gameObject.transform.position.z - player.transform.position.z) <= accuracy)
+            if (Mathf.Abs(gameObject.transform.position.z - _player.transform.position.z) <= accuracy)
             {
-                SoundIsActive = true;
-                AudioSource.PlayClipAtPoint(clip, gameObject.transform.position);
+                Handheld.Vibrate();
+                _soundIsActive = true;
+                GetComponent<AudioSource>().Play(0);
             }
         }
     }

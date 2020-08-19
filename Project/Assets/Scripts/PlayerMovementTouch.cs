@@ -2,40 +2,52 @@
 
 public class PlayerMovementTouch : MonoBehaviour
 {
-    public Rigidbody rb;
+    public float Speed;
+    public int gameEndCoordinates;
 
-    public float moveSpeed;
-    public float ScreenWidth;
-    public float forwardForce;
+    private RaycastHit _hit;
 
-    void Start()
+    public void FixedUpdate()
     {
-        ScreenWidth = Screen.width;
-        Debug.Log(ScreenWidth);
+        Movement();
+        Control();
+        LevelEnd();
     }
 
-    void FixedUpdate()
+    void Movement ()
     {
-        rb.AddForce(0, 0, forwardForce);
-        Debug.Log(Input.touchCount);
-        int i = 0;
-        while (i < Input.touchCount)
+        gameObject.transform.position = gameObject.transform.position + new Vector3(0, 0, Speed);
+    }
+
+    void Control ()
+    {
+        if ((Input.touchCount > 0) || (Input.GetMouseButton(0)))
         {
-            if (Input.GetTouch(i).position.x > ScreenWidth / 2)
+#if UNITY_EDITOR
+            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+#else
+            Ray ray = Camera.main.ScreenPointToRay(Input.GetTouch(0).position);
+#endif
+            if (Physics.Raycast(ray, out _hit))
             {
-                Debug.Log(Input.GetTouch(i).position.x);
-                rb.AddForce(moveSpeed * Time.deltaTime, 0, 0);
+                gameObject.transform.position = new Vector3(
+                    _hit.point.x, 
+                    gameObject.transform.position.y, 
+                    gameObject.transform.position.z);
             }
-            if (Input.GetTouch(i).position.x < ScreenWidth / 2)
-            {
-                Debug.Log(Input.GetTouch(i).position.x);
-                rb.AddForce(-moveSpeed * Time.deltaTime, 0, 0);
-            }
-            ++i;
         }
-        if (rb.position.y < -1f)
+    }
+
+    void LevelEnd ()
+    {
+        if (gameObject.transform.position.y < -1f)
         {
             FindObjectOfType<GameManager>().EndGame();
+        }
+
+        if (gameObject.transform.position.z >= gameEndCoordinates)
+        {
+            FindObjectOfType<GameManager>().CompleteLevel();
         }
     }
 }

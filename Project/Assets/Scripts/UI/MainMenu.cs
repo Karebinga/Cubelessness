@@ -3,7 +3,7 @@ using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using TMPro;
 
-public class Menu : MonoBehaviour
+public class MainMenu : MonoBehaviour
 {
     private TextMeshProUGUI _levelText;
     private int _levelNum = 1;
@@ -12,7 +12,6 @@ public class Menu : MonoBehaviour
     public void Start ()
     {
         _sceneNum = SceneManager.sceneCountInBuildSettings - 1;
-        Debug.Log(_sceneNum);
     }
 
     public void StartGame ()

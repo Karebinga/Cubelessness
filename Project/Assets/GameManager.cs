@@ -3,11 +3,11 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
-    bool gameHasEnded = false;
-    public float restartDelay;
+    private bool _gameHasEnded = false;
 
+    public float restartDelay;
     public GameObject completeLevelUI;
-    public AudioClip clip;
+    public AudioClip EndAudio;
 
     public void CompleteLevel ()
     {
@@ -17,13 +17,14 @@ public class GameManager : MonoBehaviour
 
     public void EndGame ()
     { 
-        if (gameHasEnded == false)
+        if (_gameHasEnded == false)
         {
-            gameHasEnded = true;
-            AudioSource.PlayClipAtPoint(clip, gameObject.transform.position);
+            _gameHasEnded = true;
+            AudioSource.PlayClipAtPoint(EndAudio, gameObject.transform.position);
             Invoke("Restart", restartDelay);
         }
     }
+
     public void Restart ()
     {
         Time.timeScale = 1f;
