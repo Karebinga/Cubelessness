@@ -4,19 +4,43 @@ using UnityEngine;
 public class GameManager : MonoBehaviour
 {
     private bool _gameHasEnded = false;
+    private static bool _gameIsStarted = false;
 
     public float restartDelay;
     public GameObject completeLevelUI;
     public AudioClip EndAudio;
 
-    public void CompleteLevel ()
+    public void Start()
+    {
+        Debug.Log(_gameIsStarted);
+        if (_gameIsStarted == false)
+        {
+            _gameIsStarted = true;
+            Time.timeScale = 0f;
+        }
+    }
+
+    public void Update()
+    {
+        if ((Input.touchCount > 0) || (Input.GetMouseButton(0)) == true)
+        {
+            Time.timeScale = 1f;
+        }
+        else
+        {
+            Time.timeScale = 0f;
+        }
+
+    }
+
+    public void CompleteLevel()
     {
         Time.timeScale = 0f;
         completeLevelUI.SetActive(true);
     }
 
-    public void EndGame ()
-    { 
+    public void EndGame()
+    {
         if (_gameHasEnded == false)
         {
             _gameHasEnded = true;
@@ -25,13 +49,13 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    public void Restart ()
+    public void Restart()
     {
-        Time.timeScale = 1f;
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        Time.timeScale = 1f;
     }
 
-    public void NextLevel ()
+    public void NextLevel()
     {
         Time.timeScale = 1f;
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);

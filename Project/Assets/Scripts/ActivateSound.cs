@@ -19,7 +19,6 @@ public class ActivateSound : MonoBehaviour
         {
             if (Mathf.Abs(gameObject.transform.position.z - _player.transform.position.z) <= accuracy)
             {
-                Handheld.Vibrate();
                 _soundIsActive = true;
                 GetComponent<AudioSource>().Play(0);
             }
