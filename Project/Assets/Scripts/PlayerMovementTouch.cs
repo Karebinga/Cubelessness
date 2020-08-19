@@ -5,18 +5,19 @@ public class PlayerMovementTouch : MonoBehaviour
     public float Speed;
     public int gameEndCoordinates;
 
+    private float _deltaX;
     private RaycastHit _hit;
 
     public void FixedUpdate()
     {
-        Movement();
-        Control();
+        ControlTouch();
         LevelEnd();
+        Movement();
     }
 
     void Movement ()
     {
-        gameObject.transform.position = gameObject.transform.position + new Vector3(0, 0, Speed);
+            gameObject.transform.Translate(Vector3.forward * Time.deltaTime * Speed);
     }
 
     void Control ()
@@ -34,6 +35,34 @@ public class PlayerMovementTouch : MonoBehaviour
                     _hit.point.x, 
                     gameObject.transform.position.y, 
                     gameObject.transform.position.z);
+            }
+        }
+    }
+
+    void ControlTouch ()
+    {
+        if (Input.touchCount > 0)
+        {
+            Touch touch = Input.GetTouch(0);
+            Ray ray = Camera.main.ScreenPointToRay(touch.position);
+
+            switch (touch.phase)
+            {
+                case TouchPhase.Began:
+                    if (Physics.Raycast(ray, out _hit))
+                    {
+                        _deltaX = _hit.point.x - transform.position.x;
+                    }
+                    break;
+
+                case TouchPhase.Moved:
+                    if (Physics.Raycast(ray, out _hit))
+                    { 
+                        gameObject.transform.position = new Vector3(_hit.point.x - _deltaX,
+                        gameObject.transform.position.y,
+                        gameObject.transform.position.z);
+                    }
+                    break;
             }
         }
     }

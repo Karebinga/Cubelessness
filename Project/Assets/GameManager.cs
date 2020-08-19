@@ -9,29 +9,31 @@ public class GameManager : MonoBehaviour
     public float restartDelay;
     public GameObject completeLevelUI;
     public AudioClip EndAudio;
+    AudioSource audioSource;
+    public PauseMenu pause;
 
-    public void Start()
+    private void Start()
     {
-        Debug.Log(_gameIsStarted);
-        if (_gameIsStarted == false)
+        _gameIsStarted = true;
+    }
+
+    void Update()
+    {
+        if (_gameHasEnded == false)
         {
-            _gameIsStarted = true;
-            Time.timeScale = 0f;
+            if (Input.touchCount < 1)
+            {
+                Time.timeScale = 0f;
+                GetComponent<AudioSource>().Pause();
+            }
+            else
+            {
+                Time.timeScale = 1f;
+                GetComponent<AudioSource>().UnPause();
+            }
         }
     }
 
-    public void Update()
-    {
-        if ((Input.touchCount > 0) || (Input.GetMouseButton(0)) == true)
-        {
-            Time.timeScale = 1f;
-        }
-        else
-        {
-            Time.timeScale = 0f;
-        }
-
-    }
 
     public void CompleteLevel()
     {
@@ -44,15 +46,15 @@ public class GameManager : MonoBehaviour
         if (_gameHasEnded == false)
         {
             _gameHasEnded = true;
-            AudioSource.PlayClipAtPoint(EndAudio, gameObject.transform.position);
             Invoke("Restart", restartDelay);
+            audioSource = GetComponent<AudioSource>();
+            audioSource.pitch = -Time.deltaTime * 0.1f;
         }
     }
 
     public void Restart()
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
-        Time.timeScale = 1f;
     }
 
     public void NextLevel()
