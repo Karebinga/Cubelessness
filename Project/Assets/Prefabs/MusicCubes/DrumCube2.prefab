@@ -110,6 +110,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   accuracy: 0.2
+  jumpPower: 1
+  jumpDuration: 0.2
 --- !u!82 &4826651096659326896
 AudioSource:
   m_ObjectHideFlags: 0

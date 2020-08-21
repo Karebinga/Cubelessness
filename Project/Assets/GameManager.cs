@@ -4,7 +4,7 @@ using UnityEngine;
 public class GameManager : MonoBehaviour
 {
     private bool _gameHasEnded = false;
-    private static bool _gameIsStarted = false;
+    public static bool gameIsStarted = false;
 
     public float restartDelay;
     public GameObject completeLevelUI;
@@ -14,10 +14,10 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
-        _gameIsStarted = true;
+        gameIsStarted = true;
     }
 
-    void Update()
+   /* void Update()
     {
         if (_gameHasEnded == false)
         {
@@ -33,7 +33,7 @@ public class GameManager : MonoBehaviour
             }
         }
     }
-
+    */
 
     public void CompleteLevel()
     {
@@ -48,7 +48,6 @@ public class GameManager : MonoBehaviour
             _gameHasEnded = true;
             Invoke("Restart", restartDelay);
             audioSource = GetComponent<AudioSource>();
-            audioSource.pitch = -Time.deltaTime * 0.1f;
         }
     }
 

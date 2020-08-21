@@ -7,6 +7,14 @@ public class PlayerMovementTouch : MonoBehaviour
 
     private float _deltaX;
     private RaycastHit _hit;
+    private GameObject _ground;
+    private float _border;
+
+    private void Start()
+    {
+        _ground = GameObject.FindGameObjectWithTag("Ground");
+        _border = _ground.transform.localScale.x / 2;
+    }
 
     public void FixedUpdate()
     {
@@ -20,25 +28,7 @@ public class PlayerMovementTouch : MonoBehaviour
             gameObject.transform.Translate(Vector3.forward * Time.deltaTime * Speed);
     }
 
-  /*  void Control ()
-    {
-        if ((Input.touchCount > 0) || (Input.GetMouseButton(0)))
-        {
-#if UNITY_EDITOR
-            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-#else
-            Ray ray = Camera.main.ScreenPointToRay(Input.GetTouch(0).position);
-#endif
-            if (Physics.Raycast(ray, out _hit))
-            {
-                gameObject.transform.position = new Vector3(
-                    _hit.point.x, 
-                    gameObject.transform.position.y, 
-                    gameObject.transform.position.z);
-            }
-        }
-    }
-    */
+
 
     void ControlTouch ()
     {
@@ -52,21 +42,25 @@ public class PlayerMovementTouch : MonoBehaviour
                 case TouchPhase.Began:
                     if (Physics.Raycast(ray, out _hit))
                     {
-                        _deltaX = _hit.point.x;
-                        Debug.Log(_deltaX);
+                    _deltaX = _hit.point.x - transform.position.x;
                     }
                     break;
 
                 case TouchPhase.Moved:
                     if (Physics.Raycast(ray, out _hit))
-                    { 
-                        transform.position = new Vector3(_hit.point.x - _deltaX,
+                    {
+                        transform.position = new Vector3(Mathf.Clamp(_hit.point.x - _deltaX,-_border,_border),
                         transform.position.y,
                         transform.position.z);
-                        Debug.Log("Currnt position" + transform.position.x);
-                        Debug.Log("Хит" + _hit.point.x);
                     }
                     break;
+
+                /*
+                 * case TouchPhase.Ended:
+                    Time.timeScale = 0f;
+                    GetComponent<AudioSource>().UnPause();
+                break;
+                */
             }
         }
     }
