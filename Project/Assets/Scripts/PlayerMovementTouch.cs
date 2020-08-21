@@ -20,7 +20,7 @@ public class PlayerMovementTouch : MonoBehaviour
             gameObject.transform.Translate(Vector3.forward * Time.deltaTime * Speed);
     }
 
-    void Control ()
+  /*  void Control ()
     {
         if ((Input.touchCount > 0) || (Input.GetMouseButton(0)))
         {
@@ -38,6 +38,7 @@ public class PlayerMovementTouch : MonoBehaviour
             }
         }
     }
+    */
 
     void ControlTouch ()
     {
@@ -51,16 +52,19 @@ public class PlayerMovementTouch : MonoBehaviour
                 case TouchPhase.Began:
                     if (Physics.Raycast(ray, out _hit))
                     {
-                        _deltaX = _hit.point.x - transform.position.x;
+                        _deltaX = _hit.point.x;
+                        Debug.Log(_deltaX);
                     }
                     break;
 
                 case TouchPhase.Moved:
                     if (Physics.Raycast(ray, out _hit))
                     { 
-                        gameObject.transform.position = new Vector3(_hit.point.x - _deltaX,
-                        gameObject.transform.position.y,
-                        gameObject.transform.position.z);
+                        transform.position = new Vector3(_hit.point.x - _deltaX,
+                        transform.position.y,
+                        transform.position.z);
+                        Debug.Log("Currnt position" + transform.position.x);
+                        Debug.Log("Хит" + _hit.point.x);
                     }
                     break;
             }
