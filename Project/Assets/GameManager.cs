@@ -47,7 +47,7 @@ public class GameManager : MonoBehaviour
             {
                 movement.Speed = 30;
                 GetComponent<AudioSource>().UnPause();
-                pauseMenuUI.transform.DOScale(new Vector3(10, 10, 10), 1f);
+                pauseMenuUI.transform.DOScale(new Vector3(11, 11, 11), 1f);
 
             }
         }
@@ -98,7 +98,7 @@ public class GameManager : MonoBehaviour
         _gameHasStarted = true;
         Level.SetActive(true);
         movement.Speed = 30;
-        StartScreenUI.transform.DOScale(new Vector3(10, 10, 10), 1f);
+        StartScreenUI.transform.DOScale(new Vector3(11, 11, 11), 1f);
     }
 
     public void LevelSelectNext()
