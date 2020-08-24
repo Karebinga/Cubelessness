@@ -23,7 +23,8 @@ public class PlayerMovementTouch : MonoBehaviour
         Movement();
     }
 
-    void Movement ()
+
+    public void Movement ()
     {
             gameObject.transform.Translate(Vector3.forward * Time.deltaTime * Speed);
     }
