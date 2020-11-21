@@ -37,7 +37,7 @@ public class GameManager : MonoBehaviour
     {
         if (_gameHasEnded == false)
         {
-            if (Input.touchCount < 1)
+            if (Input.touchCount <= 0)
             {
                 movement.Speed = 0;
                 GetComponent<AudioSource>().Pause();
@@ -48,8 +48,8 @@ public class GameManager : MonoBehaviour
                 movement.Speed = 30;
                 GetComponent<AudioSource>().UnPause();
                 pauseMenuUI.transform.DOScale(new Vector3(11, 11, 11), 1f);
-
             }
+            
         }
     }
 
