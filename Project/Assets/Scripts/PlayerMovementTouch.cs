@@ -1,8 +1,8 @@
 ﻿using UnityEngine;
+using DG.Tweening;
 
 public class PlayerMovementTouch : MonoBehaviour
 {
-    public float Speed;
     [SerializeField]
     private int _gameEndCoordinates;
     [SerializeField]
@@ -18,25 +18,19 @@ public class PlayerMovementTouch : MonoBehaviour
         _groundBorder = GameObject.Find("Ground").transform.localScale.x / 2; // Узнать размер дорожки
     }
 
-    public void FixedUpdate()
+    public void Update()
     {
-        Movement(); // Движение вперед
         ControlTouch(); // Движение и повороты по тач-контролю
-        LevelEnd();
+        //LevelEnd();
     }
 
-    public void Movement()
-    {
-        gameObject.transform.Translate(Vector3.forward * Time.deltaTime * Speed);
-    }
-
-    void LevelEnd()
-    {
-        if (gameObject.transform.position.z >= _gameEndCoordinates)
-        {
-            FindObjectOfType<GameManager>().CompleteLevel();
-        }
-    }
+    //void LevelEnd()
+    //{
+    //    if (gameObject.transform.position.z >= _gameEndCoordinates)
+    //    {
+    //        FindObjectOfType<GameManager>().CompleteLevel();
+    //    }
+    //}
 
     void ControlTouch()
     {
@@ -58,43 +52,4 @@ public class PlayerMovementTouch : MonoBehaviour
         }
     }
 }
-
-
-    /* void ControlTouch ()
-     * 
-    private RaycastHit _hit;
-     {
-         if (Input.touchCount > 0)
-         {
-             Touch touch = Input.GetTouch(0);
-             Ray ray = Camera.main.ScreenPointToRay(touch.position);
-
-             switch (touch.phase)
-             {
-                 case TouchPhase.Began:
-                     if (Physics.Raycast(ray, out _hit))
-                     {
-                     _deltaX = _hit.point.x - transform.position.x;
-                     }
-                     break;
-
-                 case TouchPhase.Moved:
-                     if (Physics.Raycast(ray, out _hit))
-                     {
-                         transform.position = new Vector3(Mathf.Clamp(_hit.point.x - _deltaX,-_border,_border),
-                         transform.position.y,
-                         transform.position.z);
-                     }
-                     break;
-                     
-                  case TouchPhase.Ended:
-                     Time.timeScale = 0f;
-                     GetComponent<AudioSource>().UnPause();
-                 break;
-
-             }
-         }
-      }*/
-
-
 

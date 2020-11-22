@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 1602848957109607381}
   - component: {fileID: 890195291}
   - component: {fileID: 373184155739608855}
+  - component: {fileID: -6352867463660972976}
   m_Layer: 0
   m_Name: KickCube1
   m_TagString: Obstacle
@@ -109,9 +110,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 17943703dda06ee41a39af1e1137fc6a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  accuracy: 0.2
+  accuracy: 0.5
   jumpPower: 1
   jumpDuration: 0.2
+  Speed: 0
 --- !u!82 &373184155739608855
 AudioSource:
   m_ObjectHideFlags: 0
@@ -122,9 +124,9 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: c9e6b23d2d8810745905bb3b833b1056, type: 3}
+  m_audioClip: {fileID: 8300000, guid: 056f8758c5b3c4c4a9fd4ee91fc791fa, type: 3}
   m_PlayOnAwake: 0
-  m_Volume: 1
+  m_Volume: 0.112
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -208,3 +210,16 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &-6352867463660972976
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8847456966935098142}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: de5572dd508741842a2b5e8e760a4dab, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _speed: 50

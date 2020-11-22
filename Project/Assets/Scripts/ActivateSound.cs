@@ -9,6 +9,7 @@ public class ActivateSound : MonoBehaviour
 
     private bool _soundIsActive = false;
     private GameObject _player;
+    public float Speed;
 
     private void Start()
     {
@@ -16,7 +17,7 @@ public class ActivateSound : MonoBehaviour
     }
 
     void FixedUpdate()
-    {
+    { 
         if (_soundIsActive == false)
         {
             if (Mathf.Abs(gameObject.transform.position.z - _player.transform.position.z) <= accuracy)

@@ -3,31 +3,40 @@ using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using TMPro;
 using DG.Tweening;
+using System.Collections;
+using System.Collections.Generic;
 
 public class GameManager : MonoBehaviour
 {
-    private bool _gameHasEnded = false;
-    private static bool _gameHasStarted = false;
-    private TextMeshProUGUI _levelText;
-    private int _levelNum = 1;
-    private int _sceneNum;
-
-    public float restartDelay;
-    public GameObject completeLevelUI;
-    public GameObject pauseMenuUI;
-    public GameObject StartScreenUI;
-    public GameObject player;
-
-    public AudioClip EndAudio;
-    AudioSource audioSource;
-    public GameObject Level;
-
-    public PlayerMovementTouch movement;
+    [SerializeField] private float restartDelay;
+    [SerializeField] private GameObject completeLevelUI;
+    [SerializeField] private GameObject pauseMenuUI;
+    [SerializeField] private GameObject StartScreenUI;
+    [SerializeField] private GameObject player;
     
+    AudioSource audioSource;
+    private GameObject _obstacle;
+    private static bool _gameHasStarted = false;
 
-   void Update()
+    [HideInInspector] public bool IsGameOnPause;
+    private SpawnManager SpawnManager;
+
+    public void Start()
     {
-        if (_gameHasStarted == true)
+        IsGameOnPause = true;
+        SpawnManager = FindObjectOfType<SpawnManager>();
+    }
+
+    public void StartGame()
+    {
+        _gameHasStarted = true;
+        StartScreenUI.transform.DOScale(new Vector3(0,0, 0), 0.5f).SetUpdate(UpdateType.Normal, true);
+        GetComponent<AudioSource>().Play();
+    }
+
+    void Update()
+    {
+        if (_gameHasStarted)
         {
             TouchPauseActivation();
         }
@@ -35,22 +44,42 @@ public class GameManager : MonoBehaviour
 
     public void TouchPauseActivation()
     {
-        if (_gameHasEnded == false)
+        if (_gameHasStarted)
         {
             if (Input.touchCount <= 0)
             {
-                movement.Speed = 0;
-                GetComponent<AudioSource>().Pause();
-                pauseMenuUI.transform.DOScale(new Vector3(1, 1, 1), 0.5f);
+                PauseGame();
             }
             else
             {
-                movement.Speed = 30;
-                GetComponent<AudioSource>().UnPause();
-                pauseMenuUI.transform.DOScale(new Vector3(11, 11, 11), 1f);
+                UnPauseGame();
             }
-            
         }
+    }
+
+    public void PauseGame()
+    {
+        if (!IsGameOnPause)
+        {
+            Time.timeScale = 0f;
+            IsGameOnPause = true;
+            GetComponent<AudioSource>().Pause();
+            pauseMenuUI.transform.DOScale(new Vector3(1, 1, 1), 0.5f).SetUpdate(UpdateType.Normal, true);
+            SpawnManager.StopSpawning();
+        }
+    }
+
+    public void UnPauseGame()
+    {
+        if (IsGameOnPause)
+        {
+            Time.timeScale = 1f;
+            IsGameOnPause = false;
+            GetComponent<AudioSource>().UnPause();
+            pauseMenuUI.transform.DOScale(new Vector3(11, 11, 11), 1f);
+            SpawnManager.StartSpawning();
+        }
+            
     }
 
     public void CompleteLevel()
@@ -61,11 +90,10 @@ public class GameManager : MonoBehaviour
 
     public void EndGame()
     {
-        if (_gameHasEnded == false)
+        if (_gameHasStarted)
         {
-            _gameHasEnded = true;
+            _gameHasStarted = false;
             Invoke("Restart", restartDelay);
-            audioSource = GetComponent<AudioSource>();
         }
     }
 
@@ -74,44 +102,5 @@ public class GameManager : MonoBehaviour
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 
-    public void NextLevel()
-    {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
-    }
 
-
-    public void Start()
-    {
-        _sceneNum = SceneManager.sceneCountInBuildSettings;
-        movement.Speed = 0;
-
-        if (_gameHasStarted == true)
-        {
-            StartScreenUI.SetActive(false);
-            Level.SetActive(true);
-            movement.Speed = 30;
-        }
-    }
-
-    public void StartGame()
-    {
-        _gameHasStarted = true;
-        Level.SetActive(true);
-        movement.Speed = 30;
-        StartScreenUI.transform.DOScale(new Vector3(11, 11, 11), 1f);
-    }
-
-    public void LevelSelectNext()
-    {
-        _levelText = GameObject.Find("Level").GetComponent<TextMeshProUGUI>();
-        _levelNum = Mathf.Clamp(_levelNum + 1, 1, _sceneNum);
-        _levelText.text = "Level " + _levelNum;
-    }
-
-    public void LevelSelectPrevious()
-    {
-        _levelText = GameObject.Find("Level").GetComponentInChildren<TextMeshProUGUI>();
-        _levelNum = Mathf.Clamp(_levelNum - 1, 1, _sceneNum);
-        _levelText.text = "Level " + _levelNum;
-    }
 }

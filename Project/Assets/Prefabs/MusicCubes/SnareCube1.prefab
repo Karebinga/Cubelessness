@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 1602848957109607381}
   - component: {fileID: 890195291}
   - component: {fileID: 1304202423248772043}
+  - component: {fileID: -659880980424000841}
   m_Layer: 0
   m_Name: SnareCube1
   m_TagString: Obstacle
@@ -109,9 +110,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 17943703dda06ee41a39af1e1137fc6a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  accuracy: 0.2
+  accuracy: 0.5
   jumpPower: 1
   jumpDuration: 0.2
+  Speed: 0
 --- !u!82 &1304202423248772043
 AudioSource:
   m_ObjectHideFlags: 0
@@ -208,3 +210,16 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &-659880980424000841
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8847456966935098142}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: de5572dd508741842a2b5e8e760a4dab, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _speed: 50
