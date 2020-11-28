@@ -11,6 +11,7 @@ public class Obstacle : MonoBehaviour
     void Start()
     { 
         GameManager = FindObjectOfType<GameManager>();
+        Destroy(gameObject, 3);
     }
 
     void Update()
