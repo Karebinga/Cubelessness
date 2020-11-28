@@ -44,7 +44,7 @@ public class SpawnManager : MonoBehaviour
         {
             _coroutineObstacleRunning = true;
 
-            Vector3 posToSpawnn = new Vector3(Random.Range(-4f, 4f), 1, 100);
+            Vector3 posToSpawnn = new Vector3(Random.Range(-3.8f, 3.8f), 1, 100);
             int randomObstacle = Random.Range(0, _obstaclePrefab.Length);
             GameObject newObstacle = Instantiate(_obstaclePrefab[randomObstacle], posToSpawnn, Quaternion.identity);
             newObstacle.transform.parent = _obstacleContainer.transform;
