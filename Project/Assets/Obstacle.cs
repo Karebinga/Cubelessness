@@ -16,9 +16,14 @@ public class Obstacle : MonoBehaviour
 
     void Update()
     {
-        if (GameManager.IsGameOnPause == false)
+        if (!GameManager.IsGameOnPause)
         {
             transform.Translate(Vector3.back * Time.deltaTime * _speed);
+        }
+
+        if (!GameManager.GameHasStarted)
+        {
+            transform.Translate(Vector3.up * Time.deltaTime * 20);
         }
     }
 }

@@ -22,7 +22,7 @@ public class ActivateSound : MonoBehaviour
 
     void FixedUpdate()
     {
-        if (_soundIsActive == false)
+        if (_soundIsActive == false && GameManager.GameHasStarted)
         {
             if (Mathf.Abs(gameObject.transform.position.z - _player.transform.position.z) <= accuracy)
             {

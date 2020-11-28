@@ -14,11 +14,12 @@ public class GameManager : MonoBehaviour
     [SerializeField] private GameObject StartScreenUI;
     [SerializeField] private GameObject ScoreUI;
     [SerializeField] private GameObject HighScoreUI;
+    [SerializeField] private GameObject Light;
     [SerializeField] private GameObject player;
     
-    AudioSource audioSource;
+    AudioSource audio;
     private int _score;
-    private static bool _gameHasStarted = false;
+    public static bool GameHasStarted = false;
 
     [HideInInspector] public bool IsGameOnPause;
     private SpawnManager SpawnManager;
@@ -26,6 +27,7 @@ public class GameManager : MonoBehaviour
 
     public void Start()
     {
+        audio = GetComponent<AudioSource>();
         IsGameOnPause = true;
         SpawnManager = FindObjectOfType<SpawnManager>();
         HighScoreUI.GetComponent<TextMeshProUGUI>().text = PlayerPrefs.GetInt("HighScore").ToString();
@@ -34,15 +36,15 @@ public class GameManager : MonoBehaviour
     public void StartGame()
     {
         _score = 0;
-        _gameHasStarted = true;
+        GameHasStarted = true;
         StartScreenUI.transform.DOScale(new Vector3(0, 0, 0), 0.5f).SetUpdate(UpdateType.Normal, true);
-        GetComponent<AudioSource>().Play();
+        audio.Play();
     }
 
     void Update()
     {
         ScoreUI.GetComponent<TextMeshProUGUI>().text = _score.ToString();
-        if (_gameHasStarted)
+        if (GameHasStarted)
         {
             TouchPauseActivation();
         }
@@ -50,7 +52,7 @@ public class GameManager : MonoBehaviour
 
     public void TouchPauseActivation()
     {
-        if (_gameHasStarted)
+        if (GameHasStarted)
         {
             if (Input.touchCount <= 0)
             {
@@ -69,7 +71,7 @@ public class GameManager : MonoBehaviour
         {
             Time.timeScale = 0f;
             IsGameOnPause = true;
-            GetComponent<AudioSource>().Pause();
+            audio.Pause();
             pauseMenuUI.transform.DOScale(new Vector3(1, 1, 1), 0.5f).SetUpdate(UpdateType.Normal, true);
             SpawnManager.StopSpawning();
         }
@@ -81,7 +83,7 @@ public class GameManager : MonoBehaviour
         {
             Time.timeScale = 1f;
             IsGameOnPause = false;
-            GetComponent<AudioSource>().UnPause();
+            audio.UnPause();
             pauseMenuUI.transform.DOScale(new Vector3(11, 11, 11), 1f);
             SpawnManager.StartSpawning();
         }
@@ -90,15 +92,16 @@ public class GameManager : MonoBehaviour
 
     public void EndGame()
     {
-        if (_gameHasStarted)
+        if (GameHasStarted)
         {
-            _gameHasStarted = false;
-
-            Invoke("Restart", restartDelay);
+            GameHasStarted = false;
+            Light.SetActive(true);
+            StartCoroutine(SoundFade());
             if (_score > PlayerPrefs.GetInt("HighScore"))
             {
                 PlayerPrefs.SetInt("HighScore", _score);
             }
+            Invoke("Restart", restartDelay);
         }
     }
 
@@ -118,4 +121,18 @@ public class GameManager : MonoBehaviour
         PlayerPrefs.DeleteKey("HighScore");
     }
 
+    IEnumerator SoundFade()
+    {
+        float currentTime = 0;
+        float start = audio.volume;
+
+        while (currentTime < 1)
+        {
+            currentTime += Time.deltaTime;
+            audio.pitch = Mathf.Lerp(1f, 0, currentTime / 1);
+            audio.volume = Mathf.Lerp(1f, 0, currentTime / 1);
+            yield return null;
+        }
+        yield break;
+    }
 }
