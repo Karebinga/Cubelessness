@@ -8,49 +8,48 @@ using System.Collections.Generic;
 
 public class GameManager : MonoBehaviour
 {
-    [SerializeField] private float restartDelay;
-    [SerializeField] private GameObject completeLevelUI;
-    [SerializeField] private GameObject pauseMenuUI;
-    [SerializeField] private GameObject StartScreenUI;
-    [SerializeField] private GameObject ScoreUI;
-    [SerializeField] private GameObject HighScoreUI;
-    [SerializeField] private GameObject Light;
-    [SerializeField] private GameObject player;
-    
-    AudioSource audio;
+    [SerializeField] private GameObject _pauseMenuUI;
+    [SerializeField] private GameObject _startScreenUI;
+    [SerializeField] private GameObject _scoreUI;
+    [SerializeField] private GameObject _highScoreUI;
+    [SerializeField] private GameObject _player;
+    [SerializeField] private GameObject _light;
+
+    [SerializeField] private float _restartDelay;
+
+    private AudioSource _audio;
     private int _score;
-    public static bool GameHasStarted = false;
+    private SpawnManager _spawnManager;
 
+    public bool GameHasStarted = false;
     [HideInInspector] public bool IsGameOnPause;
-    private SpawnManager SpawnManager;
-    static private int _highScore;
 
-    public void Start()
+    void Start()
     {
-        audio = GetComponent<AudioSource>();
         IsGameOnPause = true;
-        SpawnManager = FindObjectOfType<SpawnManager>();
-        HighScoreUI.GetComponent<TextMeshProUGUI>().text = PlayerPrefs.GetInt("HighScore").ToString();
+        _audio = GetComponent<AudioSource>();
+        _highScoreUI.GetComponent<TextMeshProUGUI>().text = PlayerPrefs.GetInt("HighScore").ToString();
+        _spawnManager = FindObjectOfType<SpawnManager>();
     }
 
     public void StartGame()
     {
         _score = 0;
         GameHasStarted = true;
-        StartScreenUI.transform.DOScale(new Vector3(0, 0, 0), 0.5f).SetUpdate(UpdateType.Normal, true);
-        audio.Play();
+        _startScreenUI.transform.DOScale(new Vector3(0, 0, 0), 0.5f).SetUpdate(UpdateType.Normal, true);
+        _audio.Play();
     }
 
     void Update()
     {
-        ScoreUI.GetComponent<TextMeshProUGUI>().text = _score.ToString();
+        _scoreUI.GetComponent<TextMeshProUGUI>().text = _score.ToString();
         if (GameHasStarted)
         {
             TouchPauseActivation();
         }
     }
 
-    public void TouchPauseActivation()
+    void TouchPauseActivation()
     {
         if (GameHasStarted)
         {
@@ -71,9 +70,9 @@ public class GameManager : MonoBehaviour
         {
             Time.timeScale = 0f;
             IsGameOnPause = true;
-            audio.Pause();
-            pauseMenuUI.transform.DOScale(new Vector3(1, 1, 1), 0.5f).SetUpdate(UpdateType.Normal, true);
-            SpawnManager.StopSpawning();
+            _audio.Pause();
+            _pauseMenuUI.transform.DOScale(new Vector3(1, 1, 1), 0.5f).SetUpdate(UpdateType.Normal, true);
+            _spawnManager.StopSpawning();
         }
     }
 
@@ -83,9 +82,9 @@ public class GameManager : MonoBehaviour
         {
             Time.timeScale = 1f;
             IsGameOnPause = false;
-            audio.UnPause();
-            pauseMenuUI.transform.DOScale(new Vector3(11, 11, 11), 1f);
-            SpawnManager.StartSpawning();
+            _audio.UnPause();
+            _pauseMenuUI.transform.DOScale(new Vector3(11, 11, 11), 1f);
+            _spawnManager.StartSpawning();
         }
             
     }
@@ -95,13 +94,13 @@ public class GameManager : MonoBehaviour
         if (GameHasStarted)
         {
             GameHasStarted = false;
-            Light.SetActive(true);
             StartCoroutine(SoundFade());
+            _light.SetActive(true);
             if (_score > PlayerPrefs.GetInt("HighScore"))
             {
                 PlayerPrefs.SetInt("HighScore", _score);
             }
-            Invoke("Restart", restartDelay);
+            Invoke("Restart", _restartDelay);
         }
     }
 
@@ -116,21 +115,17 @@ public class GameManager : MonoBehaviour
         _score++;
     }
 
-    public void Reset()
-    {
-        PlayerPrefs.DeleteKey("HighScore");
-    }
 
     IEnumerator SoundFade()
     {
         float currentTime = 0;
-        float start = audio.volume;
+        float start = _audio.volume;
 
         while (currentTime < 1)
         {
             currentTime += Time.deltaTime;
-            audio.pitch = Mathf.Lerp(1f, 0, currentTime / 1);
-            audio.volume = Mathf.Lerp(1f, 0, currentTime / 1);
+            _audio.pitch = Mathf.Lerp(1f, 0, currentTime / 1);
+            _audio.volume = Mathf.Lerp(1f, 0, currentTime / 1);
             yield return null;
         }
         yield break;

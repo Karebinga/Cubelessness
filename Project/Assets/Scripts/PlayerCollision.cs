@@ -6,7 +6,10 @@ public class PlayerCollision : MonoBehaviour
 
     void OnTriggerEnter(Collider collider)
     {
+        if (collider.tag == "Obstacle")
+        {
         movement.enabled = false;
         FindObjectOfType<GameManager>().EndGame();
+        }
     }
 }

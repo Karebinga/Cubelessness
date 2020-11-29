@@ -8,6 +8,7 @@ TagManager:
   - Ground
   - Background
   - Light
+  - Sound
   layers:
   - Default
   - TransparentFX

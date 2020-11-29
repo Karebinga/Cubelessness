@@ -6,31 +6,28 @@ public class SpawnManager : MonoBehaviour
 {
 
     [SerializeField] private GameObject[] _obstaclePrefab;
-    [SerializeField] private GameObject _lightPrefab;
     [SerializeField] private GameObject _obstacleContainer;
-    [SerializeField] private GameObject _lightsContainer;
-    [SerializeField] private float _spawnFrequencyObstacle;
-    [SerializeField] private float _spawnFrequencyLight;
 
-
+    private float _spawnFrequencyObstacle = 60.0f/30.0f;
 
     private bool _stopSpawning = false;
-    private GameManager GameManager;
+    private GameManager _gameManager;
     private bool _coroutineObstacleRunning;
-    private bool _coroutineLightsRunning;
-    private int durationCountdown;
+    private float nextTime;
+    [SerializeField] private float interval = 1f;
 
     private void Start()
     {
         _stopSpawning = true;
-        GameManager = FindObjectOfType<GameManager>();
+        _gameManager = FindObjectOfType<GameManager>();
     }
+
 
     public void StartSpawning()
     {
         _stopSpawning = false;
         StartCoroutine(SpawnObstacleRoutine());
-        //StartCoroutine(SpawnLightsRoutine());
+        nextTime = Time.time;
     }
 
     public void StopSpawning()
@@ -44,41 +41,23 @@ public class SpawnManager : MonoBehaviour
         {
             _coroutineObstacleRunning = true;
 
-            Vector3 posToSpawnn = new Vector3(Random.Range(-3.8f, 3.8f), 1, 100);
+            Vector3 posToSpawnn = new Vector3(Random.Range(-4f, 4f), 1, 120);
             int randomObstacle = Random.Range(0, _obstaclePrefab.Length);
             GameObject newObstacle = Instantiate(_obstaclePrefab[randomObstacle], posToSpawnn, Quaternion.identity);
             newObstacle.transform.parent = _obstacleContainer.transform;
 
-            if (GameManager.IsGameOnPause)
+            Debug.Log(Time.time);
+
+            if (_gameManager.IsGameOnPause)
             {
                 yield return null;
             }
             else
             {
-                yield return new WaitForSeconds(_spawnFrequencyObstacle);
+                nextTime += interval;
+                yield return new WaitForSeconds(nextTime - Time.time);
             }
             _coroutineObstacleRunning = false;
         }
     }
-
-    //IEnumerator SpawnLightsRoutine()
-    //{
-    //    while (!_stopSpawning && !_coroutineLightsRunning)
-    //    {
-    //        _coroutineLightsRunning = true;
-    //        Vector3 posToSpawn = new Vector3(0, 0, 100);
-    //        GameObject newLight = Instantiate(_lightPrefab, posToSpawn, Quaternion.identity);
-    //        newLight.transform.parent = _lightsContainer.transform;
-
-    //        if (GameManager.IsGameOnPause)
-    //        {
-    //            yield return null;
-    //        }
-    //        else
-    //        {
-    //            yield return new WaitForSeconds(_spawnFrequencyLight);
-    //        }
-    //        _coroutineLightsRunning = false;
-    //    }
-    //}
 }

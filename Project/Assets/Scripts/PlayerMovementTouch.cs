@@ -3,11 +3,8 @@ using DG.Tweening;
 
 public class PlayerMovementTouch : MonoBehaviour
 {
-    [SerializeField]
-    private int _gameEndCoordinates;
-    [SerializeField]
-    private float _controlSensibility;
-    private Vector3 _mousePosition;
+    [SerializeField] private float _controlSensibility;
+    
     private Vector3 _direction;
     private Vector3 _touchPoint;
     private float _playerTouchDistance;
@@ -15,22 +12,14 @@ public class PlayerMovementTouch : MonoBehaviour
 
     private void Start()
     {
-        _groundBorder = GameObject.Find("Ground").transform.localScale.x / 2; // Узнать размер дорожки
+        _groundBorder = GameObject.Find("Ground").transform.localScale.x / 2;
     }
 
     public void Update()
     {
-        ControlTouch(); // Движение и повороты по тач-контролю
-        //LevelEnd();
+        ControlTouch(); 
     }
-
-    //void LevelEnd()
-    //{
-    //    if (gameObject.transform.position.z >= _gameEndCoordinates)
-    //    {
-    //        FindObjectOfType<GameManager>().CompleteLevel();
-    //    }
-    //}
+    
 
     void ControlTouch()
     {

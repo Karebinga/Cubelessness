@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class Obstacle : MonoBehaviour
 {
-    [SerializeField]
-    private float _speed;
+    [SerializeField] private float _speed;
+
     private GameManager GameManager;
 
     void Start()
@@ -20,7 +20,6 @@ public class Obstacle : MonoBehaviour
         {
             transform.Translate(Vector3.back * Time.deltaTime * _speed);
         }
-
         if (!GameManager.GameHasStarted)
         {
             transform.Translate(Vector3.up * Time.deltaTime * 20);

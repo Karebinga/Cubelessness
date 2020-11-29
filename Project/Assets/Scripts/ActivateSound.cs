@@ -5,32 +5,34 @@ using TMPro;
 
 public class ActivateSound : MonoBehaviour
 {
-    public float accuracy;
-    public float jumpPower;
-    public float jumpDuration;
-
+    private float _jumpPower;
+    private float _jumpDuration;
     private bool _soundIsActive = false;
+
     private GameObject _player;
     private GameManager _gameManager;
-    public float Speed;
+    private Transform _obstacle;
 
     private void Start()
     {
         _player = GameObject.FindWithTag("Player");
         _gameManager = FindObjectOfType<GameManager>();
+        _obstacle = gameObject.transform.parent;
     }
 
-    void FixedUpdate()
+    void OnTriggerEnter(Collider collider)
     {
-        if (_soundIsActive == false && GameManager.GameHasStarted)
+        SoundActivation();
+    }
+
+    public void SoundActivation()
+    {
+        if (_soundIsActive == false && _gameManager.GameHasStarted)
         {
-            if (Mathf.Abs(gameObject.transform.position.z - _player.transform.position.z) <= accuracy)
-            {
-                gameObject.transform.DOJump(transform.position, jumpPower, 1, jumpDuration);
-                _soundIsActive = true;
-                GetComponent<AudioSource>().Play(0);
-                _gameManager.PlusScore();
-            }
+            _soundIsActive = true;
+            _obstacle.DOJump(transform.position, _jumpPower, 1, _jumpDuration);
+            _obstacle.GetComponent<AudioSource>().Play(0);
+            _gameManager.PlusScore();
         }
     }
 }
