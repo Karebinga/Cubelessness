@@ -10,8 +10,9 @@ public class GameManager : MonoBehaviour
 {
     [SerializeField] private GameObject _pauseMenuUI;
     [SerializeField] private GameObject _startScreenUI;
-    [SerializeField] private GameObject _scoreUI;
+    [SerializeField] private GameObject _scoreText;
     [SerializeField] private GameObject _highScoreUI;
+    [SerializeField] private GameObject _scoreUI;
     [SerializeField] private GameObject _player;
     [SerializeField] private GameObject _light;
 
@@ -27,26 +28,29 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         IsGameOnPause = true;
-        _audio = GetComponent<AudioSource>();
         _highScoreUI.GetComponent<TextMeshProUGUI>().text = PlayerPrefs.GetInt("HighScore").ToString();
         _spawnManager = FindObjectOfType<SpawnManager>();
+        _audio = GetComponent<AudioSource>();
+        _audio.Play();
+        Time.timeScale = 0;
+        _audio.pitch = Time.timeScale;
     }
 
     public void StartGame()
     {
         _score = 0;
-        GameHasStarted = true;
         _startScreenUI.transform.DOScale(new Vector3(0, 0, 0), 0.5f).SetUpdate(UpdateType.Normal, true);
-        _audio.Play();
+        GameHasStarted = true;
     }
 
     void Update()
     {
-        _scoreUI.GetComponent<TextMeshProUGUI>().text = _score.ToString();
+        _scoreText.GetComponent<TextMeshProUGUI>().text = _score.ToString();
         if (GameHasStarted)
         {
             TouchPauseActivation();
         }
+        
     }
 
     void TouchPauseActivation()
@@ -70,8 +74,9 @@ public class GameManager : MonoBehaviour
         {
             Time.timeScale = 0f;
             IsGameOnPause = true;
-            _audio.Pause();
+            _audio.pitch = Time.timeScale;
             _pauseMenuUI.transform.DOScale(new Vector3(1, 1, 1), 0.5f).SetUpdate(UpdateType.Normal, true);
+            _scoreUI.transform.DOScale(new Vector3(1, 1, 1), 0.5f).SetUpdate(UpdateType.Normal, true);
             _spawnManager.StopSpawning();
         }
     }
@@ -82,8 +87,9 @@ public class GameManager : MonoBehaviour
         {
             Time.timeScale = 1f;
             IsGameOnPause = false;
-            _audio.UnPause();
+            _audio.pitch = Time.timeScale;
             _pauseMenuUI.transform.DOScale(new Vector3(11, 11, 11), 1f);
+            _scoreUI.transform.DOScale(new Vector3(0, 0, 0), 0.2f);
             _spawnManager.StartSpawning();
         }
             

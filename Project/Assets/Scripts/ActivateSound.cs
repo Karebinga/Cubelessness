@@ -12,12 +12,16 @@ public class ActivateSound : MonoBehaviour
     private GameObject _player;
     private GameManager _gameManager;
     private Transform _obstacle;
+    private AudioSource _audio;
 
     private void Start()
     {
         _player = GameObject.FindWithTag("Player");
         _gameManager = FindObjectOfType<GameManager>();
         _obstacle = gameObject.transform.parent;
+
+
+        _audio = _gameManager.GetComponent<AudioSource>(); //удалить
     }
 
     void OnTriggerEnter(Collider collider)
@@ -29,6 +33,8 @@ public class ActivateSound : MonoBehaviour
     {
         if (_soundIsActive == false && _gameManager.GameHasStarted)
         {
+            Debug.Log("Hit" + Time.timeSinceLevelLoad);
+            Debug.Log("Audio" + _audio.time);
             _soundIsActive = true;
             _obstacle.DOJump(transform.position, _jumpPower, 1, _jumpDuration);
             _obstacle.GetComponent<AudioSource>().Play(0);
