@@ -24,8 +24,7 @@ public class SpawnManager : MonoBehaviour
         _stopSpawning = true;
         _gameManager = FindObjectOfType<GameManager>();
         _audio = _gameManager.GetComponent<AudioSource>();
-        nextTime = Time.timeSinceLevelLoad;
-        Debug.Log("Start at" + nextTime);
+        nextTime = _audio.time;
     }
 
 
@@ -66,7 +65,7 @@ public class SpawnManager : MonoBehaviour
                 }
                 else
                 {
-                    yield return new WaitForSeconds(nextTime - Time.timeSinceLevelLoad);
+                    yield return new WaitForSeconds(nextTime - _audio.time);
                 }
             }
 

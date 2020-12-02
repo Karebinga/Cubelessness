@@ -183,7 +183,7 @@ Light:
   m_Type: 0
   m_Shape: 0
   m_Color: {r: 0.4377358, g: 0.5105058, b: 1, a: 1}
-  m_Intensity: 18.7
+  m_Intensity: 19.71
   m_Range: 554.15
   m_SpotAngle: 81.03897
   m_InnerSpotAngle: 49.02664
@@ -6048,41 +6048,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   player: {fileID: 5745934698226144122}
   offset: {x: 0, y: 0, z: -12}
---- !u!1 &1375860111
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1375860112}
-  m_Layer: 5
-  m_Name: Lights Container
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!224 &1375860112
-RectTransform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1375860111}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 1561220143}
-  m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 100, y: 100}
-  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &1464767763
 GameObject:
   m_ObjectHideFlags: 0
@@ -6318,7 +6283,7 @@ MonoBehaviour:
   - {fileID: 8847456966935098142, guid: 47d2844186bed9842bd92b5f805837a5, type: 3}
   - {fileID: 8847456966935098142, guid: dcffc233602ff4e4e9adf8196c007e4c, type: 3}
   _obstacleContainer: {fileID: 1891708060}
-  _interval: 1
+  _interval: 0.25
 --- !u!224 &1561220143
 RectTransform:
   m_ObjectHideFlags: 0
@@ -6331,7 +6296,6 @@ RectTransform:
   m_LocalScale: {x: 0.36875, y: 0.36875, z: 0.36875}
   m_Children:
   - {fileID: 1891708061}
-  - {fileID: 1375860112}
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -11809,8 +11773,8 @@ SpriteRenderer:
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
-  m_DrawMode: 0
-  m_Size: {x: 8, y: 5.33}
+  m_DrawMode: 2
+  m_Size: {x: 20, y: 15}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -11825,7 +11789,7 @@ Transform:
   m_GameObject: {fileID: 2079940624}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: -80.65001, y: -558.67, z: 253.4}
-  m_LocalScale: {x: 30, y: 42.288002, z: 2}
+  m_LocalScale: {x: 20, y: 20, z: 2}
   m_Children:
   - {fileID: 1637300532}
   m_Father: {fileID: 689037248}

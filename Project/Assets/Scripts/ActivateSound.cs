@@ -5,8 +5,8 @@ using TMPro;
 
 public class ActivateSound : MonoBehaviour
 {
-    private float _jumpPower;
-    private float _jumpDuration;
+    private float _jumpPower = 1f;
+    private float _jumpDuration = 0.1f;
     private bool _soundIsActive = false;
 
     private GameObject _player;
@@ -19,9 +19,6 @@ public class ActivateSound : MonoBehaviour
         _player = GameObject.FindWithTag("Player");
         _gameManager = FindObjectOfType<GameManager>();
         _obstacle = gameObject.transform.parent;
-
-
-        _audio = _gameManager.GetComponent<AudioSource>(); //удалить
     }
 
     void OnTriggerEnter(Collider collider)
@@ -33,10 +30,10 @@ public class ActivateSound : MonoBehaviour
     {
         if (_soundIsActive == false && _gameManager.GameHasStarted)
         {
-            Debug.Log("Hit" + Time.timeSinceLevelLoad);
-            Debug.Log("Audio" + _audio.time);
             _soundIsActive = true;
-            _obstacle.DOJump(transform.position, _jumpPower, 1, _jumpDuration);
+            _obstacle.transform.DOJump(new Vector3(_obstacle.transform.position.x,
+                _obstacle.transform.position.y,
+                _obstacle.transform.position.z - 3f), _jumpPower, 1, _jumpDuration);
             _obstacle.GetComponent<AudioSource>().Play(0);
             _gameManager.PlusScore();
         }
